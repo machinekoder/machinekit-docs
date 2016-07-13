@@ -1,0 +1,34 @@
+---
+---
+
+:skip-front-matter:
+
+= Setting up machinekit on a platform
+
+This document is intended to get Machinekit installed on the platform of your
+choice. Because of the multi-platform nature of the machinekit project there
+can be some differences in the installation for a specific platform.
+
+[NOTE]
+You should first have a working Debian installation.
+
+== Installation options:
+
+=== Images
+
+link:../machinekit-images[Machinekit Images]
+
+
+=== Installing packages
+
+link:../installing-packages[Installing Packages]
+
+
+=== Development packages
+
+In addition to the configuring of the APT repository, installation of the
+kernel, there are some additional steps to take to install a development
+setup.
+
+link:../../developing/developing[Set up a development platform]
+  when you want to develop for Machinekit.

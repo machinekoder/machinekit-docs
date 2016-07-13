@@ -1,0 +1,103 @@
+---
+---
+
+:skip-front-matter:
+
+= Platforms
+
+
+Follow these steps to configure Apt and install a kernel and Machinekit packages:
+
+[NOTE]
+The kernel-naming convention used in these packages may change as
+experience is accumulated, especially with ARM-based systems. Be sure to
+check back here before installing a new kernel.
+
+:sectnums:
+
+== Debian Wheezy on arm7 (BeagleBone)
+
+:leveloffset: +2
+
+- link:../APT-packages-wheezy[APT Packages for Wheezy]
+
+- link:../install-rt-kernel-arm7[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+== Debian Wheezy on i386
+
+:leveloffset: +2
+
+- link:../APT-packages-wheezy[APT Packages for Wheezy]
+
+- link:../install-rt-kernel-i386[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+== Debian Wheezy on amd64
+
+:leveloffset: +2
+
+- link:../APT-packages-wheezy[APT Packages for Wheezy]
+
+- link:../install-rt-kernel-amd64[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+
+== Debian Jessie on arm7 (BeagleBone)
+
+:leveloffset: +2
+
+- link:../APT-packages-jessie[APT Packages for Jessie]
+
+- link:../install-rt-kernel-arm7[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+== Debian Jessie on arm7 (RPi2)
+
+:leveloffset: +2
+
+- link:../APT-packages-jessie[APT Packages for Jessie]
+
+- link:../install-rt-kernel-RPi2[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+== Debian Jessie on i386
+
+:leveloffset: +2
+
+- link:../APT-packages-jessie[APT Packages for Jessie]
+
+- link:../install-rt-kernel-i386[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+== Debian Jessie on amd64
+
+:leveloffset: +2
+
+- link:../APT-packages-jessie[APT Packages for Jessie]
+
+- link:../install-rt-kernel-amd64[Install the kernel]
+
+- link:../install-runtime-packages[Install Runtime Packages]
+
+:leveloffset: -2
+
+:sectnums!:
