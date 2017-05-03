@@ -20,6 +20,8 @@ link:../code/Code_Notes[Code Notes]
 
 - link:../code/Code_Notes#architecture-overview[Architecture Overview]
 
+- link:../code/Code_Notes#machinetalk-requirements-technology[Machinetalk Requirements & Technology]
+
 - link:../code/Code_Notes#motion-controller-introduction[Motion Controller Introduction]
 
 - link:../code/Code_Notes#block-diagrams-and-data-flow[Block Diagrams]
@@ -50,6 +52,8 @@ link:../code/Code_Notes[Code Notes]
 
 - link:../code/Code_Notes#cms[CMS]
 
+
+link:../code/Requirements_Technologies[Requirements & Technologies]
 
 link:../code/NML_Messages[NML Messages]
 

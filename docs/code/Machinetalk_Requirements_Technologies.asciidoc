@@ -1,0 +1,333 @@
+---
+---
+
+:skip-front-matter:
+
+:imagesdir: /docs/code
+
+= MT Requirements and Technologies
+
+== Context
+Michael Haberler provided the original write-up of these requirements in the
+LinuxCNC mailing list.
+Functionaility has been imputed by reviewing the references listed.
+These are requirements that a specific implementation should satisfy.
+Specifically, this was written to evaluate Cap'n Proto.
+
+== Requirements Summary
+:leveloffset: +1
+
+<<Common requirements>>
+
+- <<R1>>
+- <<R2>>
+- <<R3>>
+- <<R4>>
+- <<R5>>
+
+<<Message Stack Requirements>>
+
+- <<R6>>
+- <<R7>>
+- <<R8>>
+- <<R9>>
+- <<R10>>
+- <<R11>>
+
+<<Message Serialization Requirements>>
+
+- <<R12>>
+- <<R13>>
+- <<R14>>
+- <<R15>>
+- <<R16>>
+
+== Common requirements
+The common requirements apply to all parts of Machinetalk.
+
+[[R1]]
+=== Language Neutrality
+The middleware shall have language bindings for at least C, C++ and Python. Ideally, the middleware shall be completely language neutral.
+
+.<<R1>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+|Language Neutrality | Y | Y | Y  | Y | Y
+| C++                | Y | Y | Y  | Y | Y
+| C                  | Y | Y | P* | ? | ?
+| C#                 | Y | Y | P* | ? | ?
+| Go                 | Y | Y | Y  | ? | ?
+| Javascript         | Y | Y | Y  | ? | ?
+| Lua                | Y | Y | P* | ? | ?
+| OCaml              | Y | Y | P* | ? | ?
+| Python             | Y | Y | Y  | ? | ?
+| Ruby               | Y | Y | P* | ? | ?
+| Rust               | Y | Y | Y  | ? | ?
+| Scala              | Y | Y | P* | ? | ?
+|===
+
+[[S1]]
+==== Selected: ZeroMQ+Protobuf
+
+*: Serialization only.  Nothing is blocking RPC support except time and effort.
+
+
+[[R2]]
+=== Fitness for Real-Time Environment
+The middleware shall run on all supported real-time Linux flavors. However, execution of the transport messaging stack within real-time threads is not required. Messages will are passed from user space to real-time components using the ring buffer API of the HAL. It is required that serialized messages are interpretable in real-time threads of any flavor.
+
+.<<R2>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+|Linux real-time kernels| Y | Y | Y | Y | Y
+|===
+
+[[S2]]
+==== Selected: ZeroMQ+Protobuf
+
+[[R3]]
+=== Transparent Message Passing
+Intermediary components shall not be required to understand message contents beyond what is required by the semantics of involved components.
+
+.<<R3>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+|Message Agnostic| Y | Y | Y | Y | Y
+|===
+
+[[S3]]
+==== Selected: ZeroMQ+Protobuf
+
+[[R4]]
+=== Freedom of Arbitrary Limits
+Message encoding, as well as message transport, shall not constrain the use of the middleware by setting hard limits, for example, to message size.
+
+.<<R4>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+|No message size limits | Y | Y | Y | Y | Y
+|===
+
+[[S4]]
+==== Selected: ZeroMQ+Protobuf
+
+[[R5]]
+=== Based on Widely Adopted Solutions
+The middleware shall only use libraries, standards, and tools, that already have been widely adopted by the open source community and industry to keep long-term maintenance and support costs low.
+
+.<<R5>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Open source | Y | Y | Y | Y | Y
+| Formal Standard | N | N | N | N | N
+| Industry Adopted/Sponsored | iMatrix | Google | Cloudflare | Google | Real Logic
+|===
+
+[[S5]]
+==== Selected: ZeroMQ+Protobuf
+
+== Message Stack Requirements
+The following requirements apply to the messaging stack of the middleware.
+
+[[R6]]
+=== Blocking and Non-Blocking Message Handling
+The transport library shall be able to send and receive messages in a blocking as well as a non-blocking fashion without resorting to cyclically polling for new messages to be available.
+
+.<<R6>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Non-Blocking             | Y | na | Y | na | na
+| Blocking (wo polling)    | Y | na | Y | na | na
+|===
+
+[[S6]]
+==== Selected: ZeroMQ+Protobuf
+
+[[R7]]
+=== Start-up sequence
+The middleware shall only use libraries, standards, and tools, that already have been widely adopted by the open source community and industry to keep long-term maintenance and support costs low.
+
+See <<R5>> above
+
+[[R8]]
+=== Idempotent Connect and Reconnect
+Components shall be able to connect and reconnect to a running system without requiring a full restart of the real-time stack. This requirement supposes that the transport stack provides measures to detect disconnects and connects to nodes to allow state synchronization of components if necessary.
+
+.<<R8>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| RT-stack restart required             | N   | na | N | na | na
+| Connection state detected             | N** | na | Y | na | na
+|===
+
+[[S8]]
+==== Selected: ZeroMQ+Protobuf
+
+**: Machinetalk uses an extra heartbeat and connection state detection mechanism.
+
+[[R9]]
+=== Decentralized Messaging
+The messaging stack shall not require a broker for communication. The messaging stack shall be able to operate completely decentralized and using a peer-to-peer pattern.
+
+.<<R9>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Broker required             | N  | na | N   | na | na
+| Peer-to-peer                | N^ | na | Y^^ | na | na
+|===
+
+[[S9]]
+==== Selected: ZeroMQ+Protobuf
+
+^: Implement the Harmony pattern (Router+Dealer)
+^^: Level-3 of the protocol
+
+[[R10]]
+=== Minimal Configuration Requirement
+Minimal or no configuration shall be required to use the messaging transport.
+Automatic detection of matching peers is desirable.
+
+.<<R10>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Broker required          | N | na | N | na | na
+| Auto-detect peers        | N^ | na | Y^^ | na | na
+|===
+
+[[S10]]
+==== Selected: ZeroMQ+Protobuf
+
+^: Implement the Harmony pattern (Router+Dealer)
+^^: Level-3 of the protocol
+
+[[R11]]
+=== Authentification and Encryption
+The messaging transport shall support secure authentication and encryption.
+
+.<<R11>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Authentication support    | Y | na | Y | na | na
+| Encryption support        | Y | na | Y | na | na
+|===
+
+[[S11]]
+==== Selected: ZeroMQ+Protobuf
+
+== Message Serialization Requirements
+
+[[R12]]
+=== Interface Definition Language Based Encoding
+The message serialization library shall use an Interface Definition Language (IDL) for describing the message structure. It shall be possible to access and manipulate messages in any supported programming language without resorting to manual coding.
+
+.<<R12>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Interface Definition Language | Y | na | Y | na | na
+| 3rd-party lang message access | Y | na | Y | na | na
+|===
+
+[[S12]]
+==== Selected: ZeroMQ+Protobuf
+
+[[R13]]
+=== Message Introspection
+All required language bindings shall support message introspection. Message introspection allows an application to analyze the type and properties of messages at run-time. This feature decreases the cost of implementing functions to handle new and unknown messages.
+
+.<<R13>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Introspection support        | na | Y | Y | Y | Y
+| 3rd-party lang introspection | na | Y | Y | Y | Y
+|===
+
+[[S13]]
+==== Selected: ZeroMQ+Protobuf
+
+
+[[R14]]
+=== Versioning Support
+The serialization library shall support versioning of messages to allow backward compatibility to older messages. No recompilation of all associated components shall be necessary if a message definition changes. Unsupported message content shall automatically be skipped.
+
+.<<R14>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Schema evolution | na | Y | Y | P | Y
+| Version support  | na | Y | Y | ? | ?
+| Unknown field retention/schemaless copy | na | P* | Y | N | N
+|===
+
+[[S14]]
+==== Selected: ZeroMQ+Protobuf
+
+*: Removed in Proto3
+
+[[R15]]
+=== Architecture Independence
+The serialization and message format shall be completely architecture independent. The serialization library shall automatically handle byte order and floating point representation without manual coding.
+
+.<<R15>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Architecture independent serialization | na | Y | Y | Y | Y
+|===
+
+[[S15]]
+==== Selected: ZeroMQ+Protobuf
+
+[[R16]]
+=== Web Browser Support
+The serialization format shall be suitable to be used in combination with web technologies. Automatic conversion to web formats such as JSON shall be possible. No manual translation of messages shall be required. A message serialization format capable of introspection does automatically fulfill this requirement.
+
+.<<R16>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| JSON support | na | Y | Y | Y | Y
+| Websocket support | P* | na | N | na | na
+|===
+
+[[S16]]
+==== Selected: ZeroMQ+Protobuf
+
+*: Webtalk (Go) bridges the ZeroMQ sockets to WebSockets
+
+Also see <<R12>> above for introspection support
+
+== References:
+- http://machinekoder.com/machinetalk-explained-part-2-middleware-requirements/
+- http://machinekoder.com/machinetalk-explained-part-3-technologies/
+- https://capnproto.org/news/2014-06-17-capnproto-flatbuffers-sbe.html
+- https://google.github.io/flatbuffers/flatbuffers_benchmarks.html
+- http://dbeck.github.io/5-lessons-learnt-from-choosing-zeromq-and-protobuf/
+- http://zguide.zeromq.org/php:chapter8#True-Peer-Connectivity-Harmony-Pattern
+- https://github.com/real-logic/simple-binary-encoding/wiki
