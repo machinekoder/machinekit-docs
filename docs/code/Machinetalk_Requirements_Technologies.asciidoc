@@ -14,6 +14,28 @@ Functionaility has been imputed by reviewing the references listed.
 These are requirements that a specific implementation should satisfy.
 Specifically, this was written to evaluate Cap'n Proto.
 
+== Indicating Requirement Levels
+Several CAPITALIZED words are used to signify the requirement.
+This sections defines these words:
+
+IMPORTANT: The key words "MUST", "MUST NOT", "RECOMMENDED",  "NOT RECOMMENDED" in this document are to be interpreted as described below
+
+The force of these words is modified by the requirement level in which they are used.
+
+. MUST   The definition is an absolute requirement of Machinetalk.
+. MUST NOT   The definition is an absolute prohibition of Machinetalk.
+. RECOMMENDED   There may exist valid reasons in particular circumstances to ignore a particular
+   item. However, the full implications MUST be understood and carefully weighed before implementing behavior
+   different to that described with this label.
+. NOT RECOMMENDED  There may exist valid reasons in particular circumstances when the particular
+   behavior is acceptable/useful. However, the full implications MUST be understood and the case carefully weighed
+   before implementing behavior described with this label.
+. OPTIONAL   An item is truly optional.  One developer may choose to include the item because a
+   particular machine requires it. Another developer may omit the same item.
+   An implementation which does not include an OPTIONAL, MUST interoperate with any implementation including the
+   OPTIONAL - reduced functionality is permitted. Likewise, implementations including an OPTIONAL, MUST interoperate
+   with any implementation omitting the OPTIONAL. Of course, this is except for the OPTIONAL feature.
+
 == Requirements Summary
 :leveloffset: +1
 
