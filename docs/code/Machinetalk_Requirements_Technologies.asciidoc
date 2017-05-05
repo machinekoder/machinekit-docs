@@ -319,7 +319,9 @@ This feature decreases the cost of implementing functions to handle new and unkn
 
 [[R14]]
 === Versioning Support
-The serialization library shall support versioning of messages to allow backward compatibility to older messages. No recompilation of all associated components shall be necessary if a message definition changes. Unsupported message content shall automatically be skipped.
+The serialization library MUST support versioning of messages to allow backward compatibility to older messages.
+No recompilation of all associated components MUST be necessary if a message definition changes.
+Unsupported message content MUST automatically be skipped.
 
 .<<R14>>
 [cols="<,5*^"]
