@@ -100,7 +100,10 @@ We RECOMMENDED a middleware implementation be neutral with respect to all langua
 
 [[R2]]
 === Fitness for Real-Time Environment
-The middleware shall run on all supported real-time Linux flavors. However, execution of the transport messaging stack within real-time threads is not required. Messages will are passed from user space to real-time components using the ring buffer API of the HAL. It is required that serialized messages are interpretable in real-time threads of any flavor.
+The middleware MUST on all supported real-time Linux flavors.
+Execution of the transport messaging stack within real-time threads is OPTIONAL.
+Messages MUST be passed from user space to real-time components using the ring buffer API of the HAL.
+Encoded messages MUST be able to be decoded in real-time threads of any flavor.
 
 .<<R2>>
 [cols="<,5*^"]
