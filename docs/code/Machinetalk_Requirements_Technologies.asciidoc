@@ -340,7 +340,8 @@ Unsupported message content MUST automatically be skipped.
 
 [[R15]]
 === Architecture Independence
-The serialization and message format shall be completely architecture independent. The serialization library shall automatically handle byte order and floating point representation without manual coding.
+The serialization and message format MUST be completely architecture independent.
+The serialization library MUST automatically handle byte order and floating point representation without manual coding.
 
 .<<R15>>
 [cols="<,5*^"]
