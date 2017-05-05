@@ -264,7 +264,7 @@ Automatic detection of matching peers is RECOMMENDED.
 
 [[R11]]
 === Authentification and Encryption
-The messaging transport shall support secure authentication and encryption.
+The messaging transport MUST support secure authentication and encryption.
 
 .<<R11>>
 [cols="<,5*^"]
