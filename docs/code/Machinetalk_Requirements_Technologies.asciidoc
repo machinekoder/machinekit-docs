@@ -188,9 +188,18 @@ resorting to cyclically polling for new messages to be available.
 
 [[R7]]
 === Start-up sequence
-The middleware shall only use libraries, standards, and tools, that already have been widely adopted by the open source community and industry to keep long-term maintenance and support costs low.
+TBA
 
-See <<R5>> above
+.<<R7>>
+[cols="<,5*^"]
+|===
+| Requirement     | ZeroMQ | Protobuf | Cap'n Proto | FlatBuffers | SBE
+
+| Start-up sequence             | tba | tba | tba | tba | tba
+|===
+
+[[S7]]
+==== Selected: ZeroMQ+Protobuf
 
 [[R8]]
 === Idempotent Connect and Reconnect
