@@ -300,7 +300,9 @@ manual coding.
 
 [[R13]]
 === Message Introspection
-All required language bindings shall support message introspection. Message introspection allows an application to analyze the type and properties of messages at run-time. This feature decreases the cost of implementing functions to handle new and unknown messages.
+All required language bindings MUST support message introspection. Message introspection allows an application to
+analyze the type and properties of messages at run-time.
+This feature decreases the cost of implementing functions to handle new and unknown messages.
 
 .<<R13>>
 [cols="<,5*^"]
