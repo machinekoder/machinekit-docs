@@ -150,7 +150,8 @@ For example: message size or rate limits.
 
 [[R5]]
 === Based on Widely Adopted Solutions
-The middleware shall only use libraries, standards, and tools, that already have been widely adopted by the open source community and industry to keep long-term maintenance and support costs low.
+The middleware MUST only use libraries, standards, and tools, that already have been widely adopted by the
+open source community and industry to keep long-term maintenance and support costs low.
 
 .<<R5>>
 [cols="<,5*^"]
