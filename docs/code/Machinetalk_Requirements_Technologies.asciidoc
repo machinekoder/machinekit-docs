@@ -224,7 +224,8 @@ allow state synchronization of components if necessary.
 
 [[R9]]
 === Decentralized Messaging
-The messaging stack shall not require a broker for communication. The messaging stack shall be able to operate completely decentralized and using a peer-to-peer pattern.
+The messaging stack MUST NOT require a broker for communication.
+The messaging stack MUST be able to operate using a peer-to-peer pattern.
 
 .<<R9>>
 [cols="<,5*^"]
