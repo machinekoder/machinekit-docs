@@ -134,7 +134,8 @@ the components.
 
 [[R4]]
 === Freedom of Arbitrary Limits
-Message encoding, as well as message transport, shall not constrain the use of the middleware by setting hard limits, for example, to message size.
+Message encoding, and transport, MUST NOT constrain the use of the middleware by setting arbitrary hard limits.
+For example: message size or rate limits.
 
 .<<R4>>
 [cols="<,5*^"]
