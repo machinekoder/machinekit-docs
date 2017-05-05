@@ -356,7 +356,10 @@ The serialization library MUST automatically handle byte order and floating poin
 
 [[R16]]
 === Web Browser Support
-The serialization format shall be suitable to be used in combination with web technologies. Automatic conversion to web formats such as JSON shall be possible. No manual translation of messages shall be required. A message serialization format capable of introspection does automatically fulfill this requirement.
+The serialization format MUST be suitable to be used in combination with web technologies.
+Automatic conversion to web formats such as JSON MUST be possible.
+No manual translation of messages MUST be required. A message serialization format capable of introspection does
+automatically fulfill this requirement.
 
 .<<R16>>
 [cols="<,5*^"]
