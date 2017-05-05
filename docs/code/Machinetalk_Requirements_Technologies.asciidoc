@@ -203,7 +203,10 @@ TBA
 
 [[R8]]
 === Idempotent Connect and Reconnect
-Components shall be able to connect and reconnect to a running system without requiring a full restart of the real-time stack. This requirement supposes that the transport stack provides measures to detect disconnects and connects to nodes to allow state synchronization of components if necessary.
+Components MUST be able to connect and reconnect to a running system without requiring a full restart of the real-time
+stack.
+This requirement supposes that the transport stack provides measures to detect disconnects and connects to nodes to
+allow state synchronization of components if necessary.
 
 .<<R8>>
 [cols="<,5*^"]
