@@ -118,7 +118,8 @@ Encoded messages MUST be able to be decoded in real-time threads of any flavor.
 
 [[R3]]
 === Transparent Message Passing
-Intermediary components shall not be required to understand message contents beyond what is required by the semantics of involved components.
+Intermediary components MUST NOT be required to understand message contents beyond what is required by the semantics of
+the components.
 
 .<<R3>>
 [cols="<,5*^"]
