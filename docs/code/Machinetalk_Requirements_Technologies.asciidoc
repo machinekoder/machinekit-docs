@@ -171,7 +171,8 @@ The following requirements apply to the messaging stack of the middleware.
 
 [[R6]]
 === Blocking and Non-Blocking Message Handling
-The transport library shall be able to send and receive messages in a blocking as well as a non-blocking fashion without resorting to cyclically polling for new messages to be available.
+The transport library MUST be able to send and receive messages in a blocking as well as a non-blocking fashion without
+resorting to cyclically polling for new messages to be available.
 
 .<<R6>>
 [cols="<,5*^"]
