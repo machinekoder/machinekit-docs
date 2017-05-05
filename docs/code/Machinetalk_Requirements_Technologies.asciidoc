@@ -244,8 +244,8 @@ The messaging stack MUST be able to operate using a peer-to-peer pattern.
 
 [[R10]]
 === Minimal Configuration Requirement
-Minimal or no configuration shall be required to use the messaging transport.
-Automatic detection of matching peers is desirable.
+Minimal or no configuration MUST be required to use the messaging transport.
+Automatic detection of matching peers is RECOMMENDED.
 
 .<<R10>>
 [cols="<,5*^"]
