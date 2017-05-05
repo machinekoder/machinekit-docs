@@ -65,11 +65,13 @@ The force of these words is modified by the requirement level in which they are 
 - <<R16>>
 
 == Common requirements
-The common requirements apply to all parts of Machinetalk.
+Common requirements apply to all parts of Machinetalk.
 
 [[R1]]
 === Language Neutrality
-The middleware shall have language bindings for at least C, C++ and Python. Ideally, the middleware shall be completely language neutral.
+The middleware MUST allow language bindings for at least C, C++ and Python.
+The implemention does not have to provide those bindings.
+We RECOMMENDED a middleware implementation be neutral with respect to all language bindings.
 
 .<<R1>>
 [cols="<,5*^"]
