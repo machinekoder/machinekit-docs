@@ -90,6 +90,17 @@ numerical control "G and M code" programs, which are interpreted by
 the task controller into NML messages and sent to either the motion or
 discrete I/O controllers at the appropriate times.
 
+== Machinetalk Requirements & Technologies
+This is derived from Alexander Rössler's (aka the “Machine Koder”)
+Machinetalk explained series describing the concepts and ideas behind
+the Machinetalk middleware.
+Specifically,
+link:http://machinekoder.com/machinetalk-explained-part-2-middleware-requirements/[Machinetalk explained Part 2: Middleware Requirements]
+and link:http://machinekoder.com/machinetalk-explained-part-3-technologies/[Machinetalk explained Part 3: Technologies].
+
+More detail is here
+link:../code/Machinetalk_Requirements_Technologies[MT Requirements & Technologies]
+
 == Motion Controller Introduction
 
 The motion controller receives commands from user space modules via a
