@@ -282,7 +282,9 @@ The messaging transport MUST support secure authentication and encryption.
 
 [[R12]]
 === Interface Definition Language Based Encoding
-The message serialization library shall use an Interface Definition Language (IDL) for describing the message structure. It shall be possible to access and manipulate messages in any supported programming language without resorting to manual coding.
+The message serialization library MUST use an Interface Definition Language (IDL) for describing the message structure.
+It MUST be possible to access and manipulate messages in any supported programming language without resorting to
+manual coding.
 
 .<<R12>>
 [cols="<,5*^"]
