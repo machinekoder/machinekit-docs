@@ -105,6 +105,9 @@ Execution of the transport messaging stack within real-time threads is OPTIONAL.
 Messages MUST be passed from user space to real-time components using the ring buffer API of the HAL.
 Encoded messages MUST be able to be decoded in real-time threads of any flavor.
 
+Q: Resinos.io manjaro.org make containers feasible? Does resin Os support RT kernels that MK requires, eg see http://www.frank-durr.de/?p=203.
+Possibly addressing service discovery req?.
+
 .<<R2>>
 [cols="<,5*^"]
 |===
@@ -166,8 +169,78 @@ open source community and industry to keep long-term maintenance and support cos
 [[S5]]
 ==== Selected: ZeroMQ+Protobuf
 
-== Message Stack Requirements
+== MT Producer/Consumer Requirements
+
+See: https://clusterhq.com/2016/03/11/service-discovery-richard-rodger/
+
+=== Pattern Matching and Transport Independence
+MT producer/consumer developers MUST NOT require any knowledge about how MT messages
+go from A to B to write a MT message producer/consumer - Transport Independence.
+A MT producer/consumer MUST function correctly if the message tranport substrate implementation is changed
+MT producers MUST NOT know the identity/location of the MT consumers (e.g. IP address or port number)
+
+==== Comments:
+MT message producers/consumers can see the whole universe of MT messages and just pick out messages
+it cares about.
+MT message producers/consumers MUST use identify messages by pattern matching.
+That is, if a message has a certain set of data properties, that’s the message it cares about.
+Messages are not addressed to to a specific consumer.
+
+
+=== Blind messages
+A MT message producer MUST NOT know which MT consumer is going to accept or process the message.
+MT services MUST be completely defined by MT messages only, i.e. they must not know about substrate infrastructure
+such as DNS, Kafka, 0MQ, HTTP etc.
+
+=== Comments:
+Blind messages are a consequence of the pattern matching and transport independence requirements.
+However, the blind message requirements are worth stating explicitly.
+
+=== MT Infrastructure
+The MT producer/consumer MUST NOT have any knowledge of the MT insfrastructure substrate.
+They don’t even know that the substrate is there.
+
+=== MT Messages
+It is RECOMMENDED that a MT producer/consumer be defined starting with the messages (business requirements).
+It is RECOMMENDED the activities/functionality the system/component performs are explicitly represented as messages (message interactions).
+It is RECOMMENDED the list of messages are then grouped.  A group of MT messages is a service.
+MT messages MUST be able to grouped into different services over time (e.g. accommodate performance requirements).
+Each MT message MUST be able to be grouped into more than one service.
+Each MT message MUST be identified as synchronous or asynchronous.
+A MT message MUST NOT be both synchronous and asynchronous.
+It is RECOMMENDED that a MT service be synchronous or asynchronous.
+It is RECOMMENDED that a MT service be of type messages-in or messages-out.
+
+=== MT Messages
+Each MT message MUST have an identifier.
+Each Mt message MUST provide for transaction tracing.
+
+== MT Message Infrastructure Requirements
 The following requirements apply to the messaging stack of the middleware.
+
+=== Message-Service Mapping
+The MT infrastructure MUST allow for the existence other infrastructure components/implmentations.
+The MT infrastructure MUST NOT know about all MT messages.
+The MT infrastructure layer MUST know which MT services can support the messages it is aware of.
+The MT infrastructure layer MUST drop or pass on messages it is not aware of.
+It is RECOMMENDED the MT infrstructure layer be able to silently drop/pass-on messages it is unaware of.
+
+==== Comments:
+Silently passing along messages should mean that the infrstrudture stack is not broken by exceptions
+being raised when unknown messages are encountered.
+
+=== Joining MT Infrastructure
+A MT infrastructure component MUST be able to join an existing MT network using only the identity
+of some other MT infrastructure component in the network.
+
+=== Service Discovery and Orchestration
+Subsets of the MT components MUST independently ping/monitor each other.
+It is RECOMMENDED that service discovery and orchestration be independent of the the message delivery substrate.
+It is RECOMMENDED that MT service information be propogated using the SWIM algorithm/protocol.
+SWIM: Scalable Weakly-consistent Infection-style Process Group Membership Protocol(https://www.cs.cornell.edu/~asdas/research/dsn02-swim.pdf)
+
+=== Comments
+The SWIM protocol is implemented in various projects, e.g. the serf.io gossip protocol[http://serf.io].
 
 [[R6]]
 === Blocking and Non-Blocking Message Handling
@@ -246,6 +319,10 @@ The messaging stack MUST be able to operate using a peer-to-peer pattern.
 === Minimal Configuration Requirement
 Minimal or no configuration MUST be required to use the messaging transport.
 Automatic detection of matching peers is RECOMMENDED.
+Q: Is service discovery to be done on the client side (CSSD) or server side (SSSD)?
+Q: Is a service regitry (CSSSD) MUST, RECOMMENDED, OPTIONAL?
+Q: Is service instance registration refreshed periodically using a heartbeat mechanism? Other way?
+Possible Technologies: consul.io, serf.io
 
 .<<R10>>
 [cols="<,5*^"]
@@ -258,6 +335,10 @@ Automatic detection of matching peers is RECOMMENDED.
 
 [[S10]]
 ==== Selected: ZeroMQ+Protobuf
+
+MT services need the service type to detect matching peers using the
+DNS-SD over mDNS service discovery mechanism. The Machinekit UUID serves as a
+unique identifier for a Machinekit instance.
 
 ^: Implement the Harmony pattern (Router+Dealer)
 ^^: Level-3 of the protocol
@@ -385,3 +466,4 @@ Also see <<R12>> above for introspection support
 - http://dbeck.github.io/5-lessons-learnt-from-choosing-zeromq-and-protobuf/
 - http://zguide.zeromq.org/php:chapter8#True-Peer-Connectivity-Harmony-Pattern
 - https://github.com/real-logic/simple-binary-encoding/wiki
+- https://www.slideshare.net/nearForm/service-discovery-or-why-each-microservice-should-believe-its-the-only-one-in-the-world-by-richard-rodger
